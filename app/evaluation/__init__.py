@@ -1,0 +1,147 @@
+"""Day 11 frozen truth and Day 12–17 evaluation boundaries."""
+
+from app.evaluation.answer_quality import (
+    DEFAULT_ANSWER_QUALITY_OUTPUT,
+    RUBRIC_SHA256,
+    SCORING_RUBRIC,
+    AnswerQualityExperimentError,
+    AnswerQualityPersistenceError,
+    finalize_answer_quality_experiment,
+    load_answer_generation,
+    load_answer_quality_result,
+    load_manual_review,
+    run_answer_generation,
+)
+
+from app.evaluation.chunk_experiment import (
+    DEFAULT_CHUNK_EXPERIMENT_OUTPUT,
+    SELECTION_POLICY,
+    ChunkExperimentError,
+    ChunkExperimentPersistenceError,
+    compare_and_select,
+    run_chunk_parameter_experiment,
+    validate_alternative_chunk_provenance,
+    validate_chunk_experiment_matrix,
+)
+
+from app.evaluation.core import (
+    DEFAULT_EVALUATION_DATASET,
+    DEFAULT_RETRIEVAL_BASELINE,
+    EvaluationDatasetError,
+    EvaluationSourceError,
+    load_evaluation_dataset,
+    validate_evaluation_sources,
+)
+from app.evaluation.metrics import compute_case_metrics_at_k
+from app.evaluation.persistence import (
+    BaselinePersistenceError,
+    save_retrieval_baseline,
+)
+from app.evaluation.runner import (
+    DEFAULT_K_VALUES,
+    RetrievalEvaluationError,
+    aggregate_retrieval_cases,
+    run_precomputed_case_evaluation,
+    run_precomputed_retrieval_evaluation,
+    run_retrieval_evaluation,
+)
+from app.evaluation.retrieval_experiment import (
+    DEFAULT_RETRIEVAL_EXPERIMENT_OUTPUT,
+    RetrievalExperimentError,
+    RetrievalExperimentPersistenceError,
+    run_retrieval_experiment,
+)
+from app.evaluation.rerank_experiment import (
+    DEFAULT_RERANK_EXPERIMENT_OUTPUT,
+    RerankExperimentError,
+    RerankExperimentPersistenceError,
+    run_rerank_experiment,
+)
+from app.evaluation.rag_v2_freeze import (
+    DEFAULT_RAG_V2_FREEZE_OUTPUT,
+    RagV2FreezeError,
+    RagV2FreezePersistenceError,
+    freeze_rag_v2,
+    load_rag_v2_freeze,
+    save_rag_v2_freeze,
+)
+from app.evaluation.v2_retrieval_experiment import (
+    DEFAULT_EXPANDED_EPISODE_FILES,
+    DEFAULT_V2_DATASET,
+    DEFAULT_V2_RETRIEVAL_OUTPUT,
+    ExpandedEpisodeFiles,
+    V2RetrievalExperimentError,
+    V2RetrievalExperimentPersistenceError,
+    run_v2_retrieval_experiment,
+)
+from app.schemas.evaluation import (
+    EvaluationCase,
+    EvaluationChunkBaseline,
+    EvaluationDataset,
+    EvaluationTimeRange,
+    EvaluationValidationReport,
+    evaluation_cases_sha256,
+)
+
+__all__ = [
+    "DEFAULT_EVALUATION_DATASET",
+    "DEFAULT_ANSWER_QUALITY_OUTPUT",
+    "DEFAULT_CHUNK_EXPERIMENT_OUTPUT",
+    "DEFAULT_K_VALUES",
+    "DEFAULT_RETRIEVAL_BASELINE",
+    "DEFAULT_RETRIEVAL_EXPERIMENT_OUTPUT",
+    "DEFAULT_RERANK_EXPERIMENT_OUTPUT",
+    "DEFAULT_RAG_V2_FREEZE_OUTPUT",
+    "DEFAULT_EXPANDED_EPISODE_FILES",
+    "DEFAULT_V2_DATASET",
+    "DEFAULT_V2_RETRIEVAL_OUTPUT",
+    "BaselinePersistenceError",
+    "AnswerQualityExperimentError",
+    "AnswerQualityPersistenceError",
+    "ChunkExperimentError",
+    "ChunkExperimentPersistenceError",
+    "EvaluationCase",
+    "EvaluationChunkBaseline",
+    "EvaluationDataset",
+    "EvaluationDatasetError",
+    "EvaluationSourceError",
+    "EvaluationTimeRange",
+    "EvaluationValidationReport",
+    "ExpandedEpisodeFiles",
+    "RetrievalEvaluationError",
+    "RetrievalExperimentError",
+    "RetrievalExperimentPersistenceError",
+    "RerankExperimentError",
+    "RerankExperimentPersistenceError",
+    "RagV2FreezeError",
+    "RagV2FreezePersistenceError",
+    "V2RetrievalExperimentError",
+    "V2RetrievalExperimentPersistenceError",
+    "aggregate_retrieval_cases",
+    "compute_case_metrics_at_k",
+    "compare_and_select",
+    "evaluation_cases_sha256",
+    "load_evaluation_dataset",
+    "load_answer_generation",
+    "load_answer_quality_result",
+    "load_manual_review",
+    "run_retrieval_evaluation",
+    "run_answer_generation",
+    "run_precomputed_case_evaluation",
+    "run_precomputed_retrieval_evaluation",
+    "run_retrieval_experiment",
+    "run_rerank_experiment",
+    "run_v2_retrieval_experiment",
+    "freeze_rag_v2",
+    "load_rag_v2_freeze",
+    "save_rag_v2_freeze",
+    "run_chunk_parameter_experiment",
+    "finalize_answer_quality_experiment",
+    "save_retrieval_baseline",
+    "validate_evaluation_sources",
+    "validate_alternative_chunk_provenance",
+    "validate_chunk_experiment_matrix",
+    "SELECTION_POLICY",
+    "SCORING_RUBRIC",
+    "RUBRIC_SHA256",
+]

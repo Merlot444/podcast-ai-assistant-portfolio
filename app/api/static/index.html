@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <title>Podcast AI Assistant</title>
+    <link rel="stylesheet" href="/static/day25.css">
+    <script src="/static/day25.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav-shell" aria-label="页面导航">
+        <a class="project-name" href="/" aria-label="Podcast AI Assistant 首页">
+          Podcast AI Assistant
+        </a>
+        <div class="service-status" aria-label="FastAPI 接口状态">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span id="api-status" aria-live="polite">正在检查</span>
+          <span class="status-context">仅表示 API 可响应</span>
+        </div>
+      </nav>
+    </header>
+
+    <main class="page-shell">
+      <section class="hero" aria-labelledby="page-title">
+        <h1 id="page-title">Ask your podcast.</h1>
+        <p>围绕单期播客提问，获得带有可核验引用的回答。</p>
+      </section>
+
+      <section class="question-card" aria-labelledby="question-card-title">
+        <h2 id="question-card-title" class="visually-hidden">播客问答表单</h2>
+        <form id="ask-form">
+          <div class="field field-question">
+            <label for="question">问题</label>
+            <textarea
+              id="question"
+              name="question"
+              rows="5"
+              maxlength="2000"
+              required
+              placeholder="输入你想了解的问题"
+            ></textarea>
+            <p class="field-hint">请围绕一期已导入的播客提问。</p>
+          </div>
+
+          <div class="details-grid">
+            <div class="field field-episode">
+              <label for="episode-id">Episode ID</label>
+              <input
+                id="episode-id"
+                name="episode_id"
+                type="text"
+                inputmode="text"
+                autocomplete="off"
+                required
+                pattern="ep_[0-9a-f]{16}"
+                placeholder="ep_…"
+              >
+            </div>
+
+            <div class="field field-top-k">
+              <label for="top-k">Top K</label>
+              <input
+                id="top-k"
+                name="top_k"
+                type="number"
+                value="3"
+                min="1"
+                max="8"
+                step="1"
+                inputmode="numeric"
+                required
+              >
+            </div>
+
+            <div class="field field-session">
+              <label for="session-id">Session ID <span>可选</span></label>
+              <input
+                id="session-id"
+                name="session_id"
+                type="text"
+                maxlength="128"
+                autocomplete="off"
+                pattern="[A-Za-z0-9][A-Za-z0-9_.:-]*"
+                placeholder="留空即可"
+              >
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button id="submit-button" type="submit" aria-busy="false">
+              <span class="button-spinner" aria-hidden="true"></span>
+              <span id="submit-label">开始提问</span>
+            </button>
+            <p id="form-status" class="form-status" aria-live="polite"></p>
+          </div>
+        </form>
+      </section>
+
+      <section
+        id="answer-region"
+        class="result-card answer-card revealable"
+        aria-labelledby="answer-title"
+        aria-live="polite"
+        hidden
+      >
+        <p class="section-kicker">回答</p>
+        <h2 id="answer-title" class="visually-hidden">回答内容</h2>
+        <p id="answer-text" class="answer-text"></p>
+        <p id="answer-request-id" class="request-id"></p>
+
+        <div id="citation-region" class="citations" hidden>
+          <h3>引用</h3>
+          <div id="citation-list" class="citation-grid"></div>
+        </div>
+      </section>
+
+      <section
+        id="error-region"
+        class="result-card error-card revealable"
+        aria-labelledby="error-title"
+        aria-live="assertive"
+        hidden
+      >
+        <p class="section-kicker">请求未完成</p>
+        <h2 id="error-title" class="visually-hidden">错误提示</h2>
+        <p id="error-text" class="error-text"></p>
+        <p id="error-request-id" class="request-id"></p>
+      </section>
+    </main>
+  </body>
+</html>
