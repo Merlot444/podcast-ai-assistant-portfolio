@@ -144,8 +144,9 @@ def test_build_save_reload_and_query_preserve_row_mapping_and_metadata(
     assert loaded.manifest.chunk_id_order == [
         chunk.chunk_id for chunk in chunked.chunks
     ]
-    assert [(result.row_index, result.score) for result in before] == pytest.approx(
-        [(result.row_index, result.score) for result in after]
+    assert [result.row_index for result in before] == [result.row_index for result in after]
+    assert [result.score for result in before] == pytest.approx(
+        [result.score for result in after]
     )
     first = after[0]
     assert first.row_index == 0
